@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require("fs");
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: './src/index.ts',
@@ -22,6 +23,11 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
+        new CopyWebpackPlugin({
+            patterns: [
+                { from: "assets", to: "" },
+            ],
+        }),
         new webpack.BannerPlugin({banner: fs.readFileSync('./LICENSE.md', 'utf8')}),
     ],
     optimization: {
