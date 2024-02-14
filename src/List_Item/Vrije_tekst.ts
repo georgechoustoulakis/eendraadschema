@@ -1,3 +1,5 @@
+import { Electro_Item } from './Electro_Item';
+
 class Vrije_tekst extends Electro_Item {
 
     convertLegacyKeys(mykeys: Array<[string,string,any]>) {

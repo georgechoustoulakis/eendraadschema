@@ -1,3 +1,5 @@
+import { Electro_Item } from './List_Item/Electro_Item';
+
 interface Navigator{
    msSaveBlob:(blob: Blob,fileName:string) => boolean
 }

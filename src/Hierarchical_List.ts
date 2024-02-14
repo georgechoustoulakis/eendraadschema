@@ -66,6 +66,8 @@
      to editing a hierarchival list of moving items around.
 
  *****************************************************************************/
+import { SVGelement } from './SVGelement';
+import { Electro_Item } from './List_Item/Electro_Item';
 
 class Hierarchical_List {
 

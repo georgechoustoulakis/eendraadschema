@@ -1,3 +1,5 @@
+import { Electro_Item } from './Electro_Item';
+
 class Verlenging extends Electro_Item {
 
     convertLegacyKeys(mykeys: Array<[string,string,any]>) {

@@ -1,6 +1,6 @@
 declare var pako: any;
 
-function deepClone (obj) {
+export function deepClone (obj) {
   var _out = new obj.constructor;
 
   var getType = function (n) {
@@ -15,7 +15,7 @@ function deepClone (obj) {
   return _out;
 }
 
-function contains(a, obj) {
+export function contains(a, obj) {
     for (let i = 0; i < a.length; i++) {
         if (a[i] === obj) {
             return true;
@@ -24,13 +24,13 @@ function contains(a, obj) {
     return false;
 }
 
-function isInt(value) {
+export function isInt(value) {
   return !isNaN(value) &&
          parseInt(value) == value &&
          !isNaN(parseInt(value, 10));
 }
 
-function svgTextWidth(input:String, fontsize:Number = 10, options:String = '') {
+export function svgTextWidth(input:String, fontsize:Number = 10, options:String = '') {
     const div = document.createElement('div');
     div.innerHTML = '<svg width="1000" height="20"><text x="0" y="10" style="text-anchor:start" font-family="Arial, Helvetica, sans-serif" font-size="' + Number(fontsize) + '" ' + options + '>' + input + '</text></svg>';
     document.getElementById("configsection").appendChild(div);
@@ -39,7 +39,7 @@ function svgTextWidth(input:String, fontsize:Number = 10, options:String = '') {
     return(Math.ceil(width));
 }
 
-function flattenSVG(SVGstruct,shiftx,shifty,node) {
+export function flattenSVG(SVGstruct,shiftx,shifty,node) {
   var str:string = "";
 
   var X = new XMLSerializer()
@@ -130,7 +130,7 @@ function flattenSVG(SVGstruct,shiftx,shifty,node) {
   return str;
 }
 
-function flattenSVGfromString(xmlstr) {
+export function flattenSVGfromString(xmlstr) {
   var str:string = "";
   var parser = new DOMParser();
   var xmlDoc = parser.parseFromString(xmlstr, "text/xml"); //important to use "text/xml"
@@ -138,7 +138,7 @@ function flattenSVGfromString(xmlstr) {
   return str;
 }
 
-function htmlspecialchars(my_input)
+export function htmlspecialchars(my_input)
 {
     let returnstr:string;
     if (typeof(my_input) == 'undefined') returnstr = ""; else returnstr=my_input.toString();
@@ -154,7 +154,7 @@ function htmlspecialchars(my_input)
     return returnstr.replace(/[&<>"']/g, function(m) {return map[m];});
 }
 
-function browser_ie_detected()
+export function browser_ie_detected()
 {
     var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE ");

@@ -1,4 +1,8 @@
-class Electro_Item extends List_Item {
+import { List_Item } from "./List_Item";
+import { deepClone } from '../general';
+import { SVGelement } from '../SVGelement';
+
+export class Electro_Item extends List_Item {
 
   constructor(mylist: Hierarchical_List) { // This is legacy but we will live with it for now until we completely removed the key-concept
     super(mylist);

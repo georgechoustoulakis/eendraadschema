@@ -1,3 +1,7 @@
+import { Electro_Item } from './Electro_Item';
+import { SVGelement } from '../SVGelement';
+import { htmlspecialchars } from '../general';
+
 class Drukknop extends Electro_Item {
 
     convertLegacyKeys(mykeys: Array<[string,string,any]>) {

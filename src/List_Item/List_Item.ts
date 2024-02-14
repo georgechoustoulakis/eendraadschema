@@ -1,4 +1,6 @@
-class List_Item {
+import { SVGelement } from '../SVGelement';
+
+export class List_Item {
 
     // -- Publieke variabelen --
 
