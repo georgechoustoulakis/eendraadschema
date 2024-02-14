@@ -753,7 +753,7 @@ function read_settings() {
 
 //--- MAIN PROGRAM ---
 
-declare var CONF_builddate: any; //needed to be able to read the variable from the builddate.js file (otherwise compiler will complain)
+declare var CONF_builddate: string; //needed to be able to read the variable from the builddate.js file (otherwise compiler will complain)
 
 var CONF_aantal_droge_kringen = 7;
 var CONF_aantal_natte_kringen = 3;
