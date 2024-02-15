@@ -1,4 +1,4 @@
-class SVGSymbols {
+export class SVGSymbols {
 static outputSVGSymbols() {
     var output: string = `
     <defs>

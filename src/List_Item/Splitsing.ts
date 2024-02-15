@@ -1,6 +1,8 @@
 import { Electro_Item } from './Electro_Item';
+import { List_Item } from './List_Item';
+import { SVGelement } from '../SVGelement';
 
-class Splitsing extends Electro_Item {
+export class Splitsing extends Electro_Item {
 
     convertLegacyKeys(mykeys: Array<[string,string,any]>) {
         this.props.type             = this.getLegacyKey(mykeys,0);

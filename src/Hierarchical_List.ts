@@ -68,8 +68,60 @@
  *****************************************************************************/
 import { SVGelement } from './SVGelement';
 import { Electro_Item } from './List_Item/Electro_Item';
+import { List_Item } from './List_Item/List_Item';
+import { SVGSymbols } from './SVGSymbols';
+import { Properties } from './Properties';
+import { Print_Table } from './Print_Table';
+import { Aansluiting } from './List_Item/Aansluiting';
+import { Aansluitpunt } from './List_Item/Aansluitpunt';
+import { structure } from './main';
+import { Aftakdoos } from './List_Item/Aftakdoos';
+import { Batterij } from './List_Item/Batterij';
+import { Bel } from './List_Item/Bel';
+import { Boiler } from './List_Item/Boiler';
+import { Bord } from './List_Item/Bord';
+import { Diepvriezer } from './List_Item/Diepvriezer';
+import { Domotica } from './List_Item/Domotica';
+import { Domotica_verticaal } from './List_Item/Domotica_verticaal';
+import { Domotica_gestuurde_verbruiker } from './List_Item/Domotica_gestuurde_verbruiker';
+import { Koelkast } from './List_Item/Koelkast';
+import { Droogkast } from './List_Item/Droogkast';
+import { Drukknop } from './List_Item/Drukknop';
+import { Elektriciteitsmeter } from './List_Item/Elektriciteitsmeter';
+import { Elektrische_oven } from './List_Item/Elektrische_oven';
+import { EV_lader } from './List_Item/EV_lader';
+import { Ketel } from './List_Item/Ketel';
+import { Kookfornuis } from './List_Item/Kookfornuis';
+import { Kring } from './List_Item/Kring';
+import { Leiding } from './List_Item/Leiding';
+import { Omvormer } from './List_Item/Omvormer';
+import { Lichtcircuit } from './List_Item/Schakelaars/Lichtcircuit';
+import { Lichtpunt } from './List_Item/Lichtpunt';
+import { Meerdere_verbruikers } from './List_Item/Meerdere_verbruikers';
+import { Media } from './List_Item/Media';
+import { Microgolfoven } from './List_Item/Microgolfoven';
+import { Motor } from './List_Item/Motor';
+import { Schakelaars } from './List_Item/Schakelaars/Schakelaars';
+import { Stoomoven } from './List_Item/Stoomoven';
+import { Contactdoos } from './List_Item/Contactdoos';
+import { Transformator } from './List_Item/Transformator';
+import { USB_lader } from './List_Item/USB_lader';
+import { Vaatwasmachine } from './List_Item/Vaatwasmachine';
+import { Ventilator } from './List_Item/Ventilator';
+import { Verbruiker } from './List_Item/Verbruiker';
+import { Verlenging } from './List_Item/Verlenging';
+import { Verwarmingstoestel } from './List_Item/Verwarmingstoestel';
+import { Vrije_ruimte } from './List_Item/Vrije_ruimte';
+import { Vrije_tekst } from './List_Item/Vrije_tekst';
+import { Warmtepomp } from './List_Item/Warmtepomp';
+import { Zonnepaneel } from './List_Item/Zonnepaneel';
+import { Wasmachine } from './List_Item/Wasmachine';
+import { Zeldzame_symbolen } from './List_Item/Zeldzame_symbolen';
+import { Overspanningsbeveiliging } from './List_Item/Overspanningsbeveiliging';
+import { Splitsing } from './List_Item/Splitsing';
+import { htmlspecialchars } from './general';
 
-class Hierarchical_List {
+export class Hierarchical_List {
 
     // -- Public variables --
 
@@ -168,7 +220,7 @@ class Hierarchical_List {
         // First create the object
         let tempval;
         switch (electroType) {
-            case 'Aansluiting': tempval = new Aansluiting(structure); break; 
+            case 'Aansluiting': tempval = new Aansluiting(structure); break;
             case 'Aansluitpunt': case 'Leeg': tempval = new Aansluitpunt(structure); break;
             case 'Aftakdoos': tempval = new Aftakdoos(structure); break;
             case 'Batterij': tempval = new Batterij(structure); break;
@@ -176,15 +228,15 @@ class Hierarchical_List {
             case 'Boiler': tempval = new Boiler(structure); break;
             case 'Bord': tempval = new Bord(structure); break;
             case 'Diepvriezer': tempval = new Diepvriezer(structure); break;
-            case 'Domotica': tempval = new Domotica(structure); break; 
-            case 'Domotica module (verticaal)': tempval = new Domotica_verticaal(structure); break; 
-            case 'Domotica gestuurde verbruiker': tempval = new Domotica_gestuurde_verbruiker(structure); break; 
-            case 'Droogkast': tempval = new Droogkast(structure); break; 
-            case 'Drukknop': tempval = new Drukknop(structure); break; 
-            case 'Elektriciteitsmeter': tempval = new Elektriciteitsmeter(structure); break; 
-            case 'Elektrische oven': tempval = new Elektrische_oven(structure); break; 
+            case 'Domotica': tempval = new Domotica(structure); break;
+            case 'Domotica module (verticaal)': tempval = new Domotica_verticaal(structure); break;
+            case 'Domotica gestuurde verbruiker': tempval = new Domotica_gestuurde_verbruiker(structure); break;
+            case 'Droogkast': tempval = new Droogkast(structure); break;
+            case 'Drukknop': tempval = new Drukknop(structure); break;
+            case 'Elektriciteitsmeter': tempval = new Elektriciteitsmeter(structure); break;
+            case 'Elektrische oven': tempval = new Elektrische_oven(structure); break;
             case 'EV lader': tempval = new EV_lader(structure); break;
-            case 'Ketel': tempval = new Ketel(structure); break; 
+            case 'Ketel': tempval = new Ketel(structure); break;
             case 'Koelkast': tempval = new Koelkast(structure); break;
             case 'Kookfornuis': tempval = new Kookfornuis(structure); break;
             case 'Kring': tempval = new Kring(structure); break;
@@ -216,7 +268,7 @@ class Hierarchical_List {
             case 'Zonnepaneel': tempval = new Zonnepaneel(structure); break;
             default: tempval = new Electro_Item(structure);
         }
-      
+
         // Then set the correct identifyer
         tempval.id = this.curid;
         tempval.parent = 0;

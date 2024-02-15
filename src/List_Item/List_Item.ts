@@ -1,4 +1,5 @@
 import { SVGelement } from '../SVGelement';
+import { Hierarchical_List } from '../Hierarchical_List';
 
 export class List_Item {
 

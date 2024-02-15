@@ -1,6 +1,10 @@
-var VERSION = "git"; //can be "git" or "online"
+import { download_by_blob, import_to_structure, structure } from './main';
 
-var PROP_Contact_Text = `<html>
+declare var pako: any;
+
+export const VERSION = "git"; //can be "git" or "online"
+
+export const PROP_Contact_Text = `<html>
   <head>
     <title>Eendraadschema online</title>
     <link rel="stylesheet" href="css/about.css">
@@ -14,24 +18,24 @@ var PROP_Contact_Text = `<html>
   </body>
 </html>`
 
-function PROP_GDPR() {
+export function PROP_GDPR() {
   return("");
 }
 
-function PROP_getCookieText() {
+export function PROP_getCookieText() {
   return("");
 }
 
 //--- START OF DEVELOPMENT OPTIONS ---
 
-function PROP_development_options() {
+export function PROP_development_options() {
   let outstr:string = '<br><h2>Expert ontwikkel opties, Gebruik enkel indien u weet wat u doet.</h2>'
                     + '<textarea id="HL_loadfromtext" style="width: 80%; height: 8em;"></textarea><br>'
                     + '<button onclick="loadFileFromText()">Load from input</button>';
   return outstr;
 }
 
-function loadFileFromText() {
+export function loadFileFromText() {
   let str:string = (document.getElementById('HL_loadfromtext') as HTMLInputElement).value;
   import_to_structure(str)
 }
@@ -39,7 +43,7 @@ function loadFileFromText() {
 
 /// --- END OF DEVELOPMENT OPTIONS ---
 
-function exportjson() {
+export function exportjson() {
     var filename:string;
 
     /* We use the Pako library to entropy code the data
@@ -75,12 +79,12 @@ function exportjson() {
     }
 }
 
-function displayButtonPrintToPdf() {
+export function displayButtonPrintToPdf() {
   return("");
   //Does nothing in the serverless version, only used on https://eendraadschema.goethals-jacobs.be
 }
 
-function handleButtonPrintToPdf() {
+export function handleButtonPrintToPdf() {
   return(0);
   //Does nothing in the serverless version, only used on https://eendraadschema.goethals-jacobs.be
 }

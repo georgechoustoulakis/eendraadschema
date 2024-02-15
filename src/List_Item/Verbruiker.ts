@@ -1,6 +1,8 @@
 import { Electro_Item } from './Electro_Item';
+import { htmlspecialchars, svgTextWidth } from '../general';
+import { SVGelement } from '../SVGelement';
 
-class Verbruiker extends Electro_Item {
+export class Verbruiker extends Electro_Item {
 
     convertLegacyKeys(mykeys: Array<[string,string,any]>) {
         this.props.type                        = this.getLegacyKey(mykeys,0);

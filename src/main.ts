@@ -1,10 +1,34 @@
 import { Electro_Item } from './List_Item/Electro_Item';
+import { Hierarchical_List } from './Hierarchical_List';
+import { CONFIGPAGE_LEFT, CONFIGPAGE_RIGHT, EXAMPLE0, EXAMPLE1, EXAMPLE_DEFAULT } from './config';
+import { browser_ie_detected, flattenSVGfromString, isInt } from './general';
+import { Bord } from './List_Item/Bord';
+import { Kring } from './List_Item/Kring';
+import { SVGelement } from './SVGelement';
+import {
+    displayButtonPrintToPdf,
+    PROP_Contact_Text,
+    PROP_development_options,
+    PROP_GDPR,
+    PROP_getCookieText
+} from './prop_scripts';
+
+export * from './config';
+export * from './general';
+export * from './Hierarchical_List';
+export * from './Print_Table';
+export * from './prop_scripts';
+export * from './Properties';
+export * from './SVGelement';
+export * from './SVGSymbols';
+
+declare var pako: any;
 
 interface Navigator{
    msSaveBlob:(blob: Blob,fileName:string) => boolean
 }
 
-function HLCollapseExpand(my_id: number, state?: Boolean) {
+export function HLCollapseExpand(my_id: number, state?: Boolean) {
     let ordinal: number;
     ordinal = structure.getOrdinalById(my_id);
     if (state == undefined) {
@@ -15,48 +39,48 @@ function HLCollapseExpand(my_id: number, state?: Boolean) {
     HLRedrawTree();
 }
 
-function HLDelete(my_id: number) {
+export function HLDelete(my_id: number) {
     structure.deleteById(my_id);
     HLRedrawTree();
 }
 
-function HLAdd(my_id: number) {
+export function HLAdd(my_id: number) {
     structure.addItem("");
     HLRedrawTree();
 }
 
-function HLInsertBefore(my_id: number) {
+export function HLInsertBefore(my_id: number) {
     structure.insertItemBeforeId(new Electro_Item(structure), my_id);
     HLRedrawTree();
 }
 
-function HLInsertAfter(my_id: number) {
+export function HLInsertAfter(my_id: number) {
     structure.insertItemAfterId(new Electro_Item(structure), my_id);
     HLRedrawTree();
 }
 
-function HLMoveDown(my_id: number) {
+export function HLMoveDown(my_id: number) {
     structure.moveDown(my_id);
     HLRedrawTree();
 }
 
-function HLMoveUp(my_id: number) {
+export function HLMoveUp(my_id: number) {
     structure.moveUp(my_id);
     HLRedrawTree();
 }
 
-function HLClone(my_id: number) {
+export function HLClone(my_id: number) {
     structure.clone(my_id);
     HLRedrawTree();
 }
 
-function HLInsertChild(my_id: number) {
+export function HLInsertChild(my_id: number) {
     structure.insertChildAfterId(new Electro_Item(structure), my_id);
     HLCollapseExpand(my_id, false);
     //No need to call HLRedrawTree as HLCollapseExpand already does that
 }
 
-function HLPropUpdate(my_id: number, item: string, type: string, docId: string) {
+export function HLPropUpdate(my_id: number, item: string, type: string, docId: string) {
     switch (type) {
       case "SELECT":
           var setvalueselect: string = (document.getElementById(docId) as HTMLInputElement).value;
@@ -80,12 +104,12 @@ function HLPropUpdate(my_id: number, item: string, type: string, docId: string) 
     HLRedrawTreeSVG();
 }
 
-function HL_editmode() {
+export function HL_editmode() {
     structure.mode = (document.getElementById("edit_mode") as HTMLInputElement).value;
     HLRedrawTreeHTML();
 }
 
-function HL_changeparent(my_id: number) {
+export function HL_changeparent(my_id: number) {
     // See what the new parentid is
     let str_newparentid = (document.getElementById("id_parent_change_"+my_id) as HTMLInputElement).value;
 
@@ -109,11 +133,11 @@ function HL_changeparent(my_id: number) {
     HLRedrawTree();
 }
 
-function HL_cancelFilename() {
+export function HL_cancelFilename() {
     document.getElementById("settings").innerHTML = '<code>' + structure.properties.filename + '</code>&nbsp;<button onclick="HL_enterSettings()">Wijzigen</button>&nbsp;<button onclick="exportjson()">Opslaan</button>';
 }
 
-function HL_changeFilename() {
+export function HL_changeFilename() {
     var regex:RegExp = new RegExp('^[-_ A-Za-z0-9]{2,}\\.eds$');
     var filename = (document.getElementById("filename") as HTMLInputElement).value;
     if (regex.test(filename)) {
@@ -125,18 +149,18 @@ function HL_changeFilename() {
     }
 }
 
-function HL_enterSettings() {
+export function HL_enterSettings() {
     document.getElementById("settings").innerHTML = '<input type="text" id="filename" onchange="HL_changeFilename()" value="' + structure.properties.filename + '" pattern="^[-_ A-Za-z0-9]{2,}\\\.eds$">&nbsp;<i>Gebruik enkel alphanumerieke karakters a-z A-Z 0-9, streepjes en spaties. <b>Eindig met ".eds"</b>. Druk daarna op enter.</i><br><button onclick="HL_cancelFilename()">Annuleer</button>&nbsp;<button onclick="HL_changeFilename()">Toepassen</button>';
 }
 
-function HLRedrawTreeHTML() {
+export function HLRedrawTreeHTML() {
     show2col();
     document.getElementById("configsection").innerHTML = "";
     var output:string = structure.toHTML(0) + "<br>" + renderAddressStacked();
     document.getElementById("left_col_inner").innerHTML = output;
 }
 
-function HLRedrawTreeSVG() {
+export function HLRedrawTreeSVG() {
     let str:string = '<b>Tekening: </b>Ga naar het print-menu om de tekening af te printen of te exporteren als SVG vector graphics.<br><br>'
                    +  flattenSVGfromString(structure.toSVG(0,"horizontal").data)
                    + '<h2>Legende:</h2>'
@@ -150,39 +174,39 @@ function HLRedrawTreeSVG() {
     document.getElementById("right_col_inner").innerHTML = str;
 }
 
-function HLRedrawTree() {
+export function HLRedrawTree() {
     HLRedrawTreeHTML();
     HLRedrawTreeSVG();
 }
 
-function HLAddPrintPage() {
-    this.structure.print_table.addPage();
+export function HLAddPrintPage() {
+    structure.print_table.addPage();
     printsvg();
 }
 
-function HLDeletePrintPage(mypage: number) {
-    this.structure.print_table.deletePage(mypage);
+export function HLDeletePrintPage(mypage: number) {
+    structure.print_table.deletePage(mypage);
     printsvg();
 }
 
-function HLChangePrintStop(page: number) {
+export function HLChangePrintStop(page: number) {
     let str_newstop = (document.getElementById("id_stop_change_"+page) as HTMLInputElement).value;
     let int_newstop = parseInt(str_newstop);
     structure.print_table.setStop(page,int_newstop);
     printsvg();
 }
 
-function HLDisplayPage() {
+export function HLDisplayPage() {
     structure.print_table.displaypage = parseInt((document.getElementById("id_select_page") as HTMLInputElement).value)-1;
     printsvg();
 }
 
-function HLChangeModeVertical() {
+export function HLChangeModeVertical() {
     structure.print_table.setModeVertical((document.getElementById("id_modeVerticalSelect") as HTMLInputElement).value);
     printsvg();
 }
 
-function HLChangeStartY() {
+export function HLChangeStartY() {
     var starty = parseInt((document.getElementById("id_starty") as HTMLInputElement).value);
     if (isNaN(starty)) starty = 0;
     structure.print_table.setstarty(starty);
@@ -190,7 +214,7 @@ function HLChangeStartY() {
     printsvg();
 }
 
-function HLChangeStopY() {
+export function HLChangeStopY() {
     var stopy = parseInt((document.getElementById("id_stopy") as HTMLInputElement).value);
     if (isNaN(stopy)) stopy = structure.print_table.getHeight();
     structure.print_table.setstopy(stopy);
@@ -198,11 +222,11 @@ function HLChangeStopY() {
     printsvg();
 }
 
-function HLChangePaperSize() {
+export function HLChangePaperSize() {
     structure.print_table.setPaperSize((document.getElementById("id_papersize") as HTMLInputElement).value);
 }
 
-function buildNewStructure(structure: Hierarchical_List) {
+export function buildNewStructure(structure: Hierarchical_List) {
     // Paremeterisation of the electro board
     let aantalDrogeKringen: number = CONF_aantal_droge_kringen;
     let aantalNatteKringen: number = CONF_aantal_natte_kringen;;
@@ -240,13 +264,13 @@ function buildNewStructure(structure: Hierarchical_List) {
     itemCounter++;
 }
 
-function reset_all() {
+export function reset_all() {
     structure = new Hierarchical_List();
     buildNewStructure(structure);
     HLRedrawTree();
 }
 
-function doprint() {
+export function doprint() {
 
   var prtContent = document.getElementById("printarea");
   var WinPrint = window.open();
@@ -284,13 +308,13 @@ function doprint() {
     WinPrint.close();
 }
 
-function dosvgdownload() {
+export function dosvgdownload() {
     var prtContent = document.getElementById("printsvgarea").innerHTML;
     var filename = (document.getElementById("dosvgname") as HTMLInputElement).value;
     download_by_blob(prtContent, filename, 'data:image/svg+xml;charset=utf-8'); //Was text/plain
 }
 
-function renderAddress() {
+export function renderAddress() {
     var outHTML: string = "";
 
     outHTML = '<div align="left">' +
@@ -306,7 +330,7 @@ function renderAddress() {
     return outHTML;
 }
 
-function renderAddressStacked() {
+export function renderAddressStacked() {
     var outHTML: string = "";
 
     outHTML = 'Plaats van de elektrische installatie' +
@@ -325,7 +349,7 @@ function renderAddressStacked() {
     return outHTML;
 }
 
-function getPrintSVGWithoutAddress() {
+export function getPrintSVGWithoutAddress() {
     var outSVG = new SVGelement();
     outSVG = structure.toSVG(0,"horizontal");
 
@@ -347,23 +371,23 @@ function getPrintSVGWithoutAddress() {
     return(outstr);
 }
 
-function renderPrintSVG() {
+export function renderPrintSVG() {
     document.getElementById("printarea").innerHTML = '<div id="printsvgarea">' +
                                                         getPrintSVGWithoutAddress() +
                                                     '</div>';
 }
 
-function changePrintParams() {
+export function changePrintParams() {
     renderPrintSVG();
 }
 
-function changeAddressParams() {
+export function changeAddressParams() {
     structure.properties.owner = (document.getElementById("conf_owner") as HTMLElement).innerHTML;
     structure.properties.installer = (document.getElementById("conf_installer") as HTMLElement).innerHTML;
     structure.properties.info = (document.getElementById("conf_info") as HTMLElement).innerHTML;
 }
 
-function printsvg() {
+export function printsvg() {
     var strleft: string = "";
 
     var outSVG = new SVGelement();
@@ -436,7 +460,7 @@ function printsvg() {
     hide2col();
 }
 
-function exportscreen() {
+export function exportscreen() {
     var strleft: string = "";
 
     strleft += '<br><table border=0><tr><td width=500 style="vertical-align:top;padding:5px">';
@@ -448,7 +472,7 @@ function exportscreen() {
     strleft += 'Eens opgeslagen kan het schema later opnieuw geladen worden door in het menu "openen" te kiezen en vervolgens het bestand op uw harde schijf te selecteren.<br><br>'
     strleft += '</td></tr>';
 
-    strleft += PROP_GDPR(); //Function returns empty for GIT version, returns GDPR notice when used online.
+    strleft += PROP_GDPR(); //export function returns empty for GIT version, returns GDPR notice when used online.
 
     strleft += '</table>';
 
@@ -458,14 +482,14 @@ function exportscreen() {
     hide2col();
 }
 
-function openContactForm() {
+export function openContactForm() {
     var strleft: string = PROP_Contact_Text;
 
     document.getElementById("configsection").innerHTML = strleft;
     hide2col();
 }
 
-function restart_all() {
+export function restart_all() {
     var strleft: string = CONFIGPAGE_LEFT;
 
     strleft +=
@@ -488,7 +512,7 @@ function restart_all() {
     }
 }
 
-function hide2col() {
+export function hide2col() {
     var leftElement = document.getElementById("left_col_inner");
     var rightElement = document.getElementById("right_col_inner");
     if(typeof(leftElement) != 'undefined' && leftElement != null){
@@ -500,13 +524,13 @@ function hide2col() {
     document.getElementById("canvas_2col").innerHTML = "";
 }
 
-function show2col() {
+export function show2col() {
     if (document.getElementById("canvas_2col").innerHTML == "") {
         document.getElementById("canvas_2col").innerHTML = '<div id="left_col"><div id="left_col_inner"></div></div><div id="right_col"><div id="right_col_inner"></div></div>';
     }
 }
 
-function import_to_structure(mystring: string, redraw = true) {
+export function import_to_structure(mystring: string, redraw = true) {
 
     var text:string = "";
     var version;
@@ -632,10 +656,10 @@ function import_to_structure(mystring: string, redraw = true) {
         structure.print_table.setstopy(mystructure.print_table.stopy);
 
         for (let i=0; i<mystructure.print_table.pages.length; i++) {
-            if (i != 0) this.structure.print_table.addPage();
-            this.structure.print_table.pages[i].height = mystructure.print_table.pages[i].height;
-            this.structure.print_table.pages[i].start = mystructure.print_table.pages[i].start;
-            this.structure.print_table.pages[i].stop = mystructure.print_table.pages[i].stop;
+            if (i != 0) structure.print_table.addPage();
+            structure.print_table.pages[i].height = mystructure.print_table.pages[i].height;
+            structure.print_table.pages[i].start = mystructure.print_table.pages[i].start;
+            structure.print_table.pages[i].stop = mystructure.print_table.pages[i].stop;
         }
     }
 
@@ -669,7 +693,7 @@ function import_to_structure(mystring: string, redraw = true) {
     if (redraw == true) HLRedrawTree();
 }
 
-function load_example(nr: number) {
+export function load_example(nr: number) {
     switch (nr) {
         case 0:
             import_to_structure(EXAMPLE0);
@@ -700,18 +724,14 @@ var importjson = function(event) {
 };
 
 
-function importclicked() {
+export function importclicked() {
     document.getElementById('importfile').click();
     (document.getElementById('importfile') as HTMLInputElement).value = "";
 }
 
-function download_by_blob(text, filename, mimeType) {
+export function download_by_blob(text, filename, mimeType) {
     var element = document.createElement('a');
-    if (navigator.msSaveBlob) {
-        navigator.msSaveBlob(new Blob([text], {
-          type: mimeType
-        }), filename);
-    } else if (URL && 'download' in element) {
+    if (URL && 'download' in element) {
         let uriContent = URL.createObjectURL(new Blob([text], {type : mimeType}));
         element.setAttribute('href', uriContent);
         element.setAttribute('download', filename);
@@ -724,7 +744,7 @@ function download_by_blob(text, filename, mimeType) {
     }
 }
 
-function download(type: string) {
+export function download(type: string) {
     var filename:string;
     var mimeType:string;
     switch (type) {
@@ -745,7 +765,7 @@ function download(type: string) {
     download_by_blob(text, filename, mimeType); //was text/plain
 }
 
-function read_settings() {
+export function read_settings() {
   CONF_aantal_fazen_droog = parseInt((document.getElementById("aantal_fazen_droog") as HTMLInputElement).value);
   CONF_aantal_fazen_nat = CONF_aantal_fazen_droog;
   CONF_hoofdzekering = parseInt((document.getElementById("hoofdzekering") as HTMLInputElement).value);
@@ -766,7 +786,7 @@ var CONF_differentieel_droog = 300;
 var CONF_differentieel_nat = 30;
 var CONF_upload_OK = "ask"; //can be "ask", "yes", "no"; //before uploading, we ask
 
-var structure: Hierarchical_List;
+export let structure: Hierarchical_List;
 import_to_structure(EXAMPLE_DEFAULT,false); //Just in case the user doesn't select a scheme and goes to drawing immediately, there should be something there
 
 restart_all();

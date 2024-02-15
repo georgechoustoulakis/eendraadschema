@@ -5,7 +5,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.ts',
+    entry: './src/main.ts',
     mode: "development",
     module: {
         rules: [
@@ -22,6 +22,7 @@ module.exports = {
     output: {
         filename: 'eendraadschema.js',
         path: path.resolve(__dirname, 'dist'),
+        libraryTarget: 'umd'
     },
     plugins: [
         new CopyWebpackPlugin({

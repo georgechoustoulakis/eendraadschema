@@ -1,6 +1,7 @@
 import { Electro_Item } from './Electro_Item';
+import { SVGelement } from '../SVGelement';
 
-class Motor extends Electro_Item {
+export class Motor extends Electro_Item {
 
     convertLegacyKeys(mykeys: Array<[string,string,any]>) {
         this.props.type             = this.getLegacyKey(mykeys,0);

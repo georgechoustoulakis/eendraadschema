@@ -2,7 +2,7 @@ import { Electro_Item } from './Electro_Item';
 import { SVGelement } from '../SVGelement';
 import { htmlspecialchars, svgTextWidth } from '../general';
 
-class Domotica_verticaal extends Electro_Item {
+export class Domotica_verticaal extends Electro_Item {
 
     convertLegacyKeys(mykeys: Array<[string,string,any]>) {
         //Niet nodig, bestond niet toen we nog Keys gebruikten

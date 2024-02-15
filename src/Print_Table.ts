@@ -1,4 +1,4 @@
-class Page_Info {
+export class Page_Info {
   height: number;
   start: number;
   stop: number;
@@ -10,7 +10,7 @@ class Page_Info {
   }
 }
 
-class Print_Table {
+export class Print_Table {
   pages:Array<Page_Info>
 
   height: number;

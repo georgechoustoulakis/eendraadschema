@@ -1,6 +1,7 @@
 import { List_Item } from "./List_Item";
-import { deepClone } from '../general';
+import { deepClone, htmlspecialchars } from '../general';
 import { SVGelement } from '../SVGelement';
+import { Hierarchical_List } from '../Hierarchical_List';
 
 export class Electro_Item extends List_Item {
 
