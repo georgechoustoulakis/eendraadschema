@@ -1,8 +1,6 @@
-****************************************************
-Eendraadschema tekenen -- Drawing a one-wire diagram
-****************************************************
+# Eendraadschema tekenen -- Drawing a one-wire diagram
 
-=== Purpose ===
+## Purpose
 
 Design and draw a one-wire diagram as enforced by the Belgian AREI legislation.
 Source code written in Typescript, transpiled to Javascript and run in a browser.
@@ -11,7 +9,7 @@ Present files are a standalone copy of the online version found at https://eendr
 Note that some limited functionalities will not be available in the standalone version.
 We refer to the online version if you whish to use this tool in a production setting.
 
-=== L I C E N S E ===
+## LICENSE
 
 Copyright (C) 2019-2023  Ivan Goethals
 
@@ -33,23 +31,30 @@ Licenses for embedded content
 - This program uses the Pako.js entropy coding library. Pako is released under an MIT license by Andrey Tupitsin and Vitaly Puzrin. For more information on Pako and the full license text, please visit https://github.com/nodeca/pako
 - Pako implements ZLib in javascript. Zlib is released under the ZLIB License.  See https://www.zlib.net/zlib_license.html
 
-=== History ===
+## History
 
 Software developed by Ivan Goethals between as of March 2019.
 Placed on Github as-is on June 1st 2020 and further developed on Github.
 So far, Ivan is the only known contributor to the project.
 
-=== Build / Compile ===
+## How to build the website
+Checkout this repository into a dedicated folder.
 
-Below description is valid for a linux terminal with bash- or sh-shell.
-With some extra tweaks, compilation on other systems should be possible as well.
+Install dependencies using your favorite package manager for Node (such as `npm` or `yarn`):
+```shell
+npm install
+```
+Running the development server:
+```shell
+npm run start
+```
+Build production website:
+```shell
+npm run build
+```
+The files will be located in the `/dist` folder.
 
-- Extract all files and directories in a dedicated folder.
-- Ensure you have a typescript compiler installed that can be called by the name "tsc"
-- Run the ./compile -script from the dedicated folder.
-- Open index.html with a modern browser
-
-=== Further development ===
+## Further development
 
 The eendraadschema software is, and has been used by various hobbyists on the Belgian
 market. As such it is important that the software remains backwards compatible with
@@ -62,5 +67,3 @@ json-dumps of internal data-structures, until further notice, this entails the f
 - No fundamental changes can be allowed to the Electro_Item -class constructor. Especially the order of the
   keys must be maintained. If new future features require an extension of the number of available keys,
   extra keys should be added at the end.
-
-=== End of Document ===
