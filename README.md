@@ -9,28 +9,6 @@ Present files are a standalone copy of the online version found at https://eendr
 Note that some limited functionalities will not be available in the standalone version.
 We refer to the online version if you whish to use this tool in a production setting.
 
-## LICENSE
-
-Copyright (C) 2019-2023  Ivan Goethals
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
-
-Licenses for embedded content
-
-- This program uses the Pako.js entropy coding library. Pako is released under an MIT license by Andrey Tupitsin and Vitaly Puzrin. For more information on Pako and the full license text, please visit https://github.com/nodeca/pako
-- Pako implements ZLib in javascript. Zlib is released under the ZLIB License.  See https://www.zlib.net/zlib_license.html
-
 ## History
 
 Software developed by Ivan Goethals between as of March 2019.
