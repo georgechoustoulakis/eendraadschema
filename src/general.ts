@@ -1,5 +1,3 @@
-declare var pako: any;
-
 export function deepClone (obj) {
   var _out = new obj.constructor;
 

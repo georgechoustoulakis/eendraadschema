@@ -12,6 +12,7 @@ import {
     PROP_GDPR,
     PROP_getCookieText
 } from './prop_scripts';
+import * as pako from 'pako/dist/pako.es5';
 
 export * from './config';
 export * from './general';
@@ -21,8 +22,6 @@ export * from './prop_scripts';
 export * from './Properties';
 export * from './SVGelement';
 export * from './SVGSymbols';
-
-declare var pako: any;
 
 interface Navigator{
    msSaveBlob:(blob: Blob,fileName:string) => boolean
@@ -567,9 +566,9 @@ export function import_to_structure(mystring: string, redraw = true) {
 
         try { //See if the text decoder works, if not, we will do it manually (slower)
             let decoder = new TextDecoder("utf-8");
-            text = decoder.decode(pako.inflate(buffer));
+            text = decoder.decode(pako.inflate(buffer,undefined));
         } catch (error) { //Continue without the text decoder (old browsers)
-            var inflated:Uint8Array = pako.inflate(buffer);
+            var inflated:Uint8Array = pako.inflate(buffer,undefined);
             text = "";
             for (let i=0; i<inflated.length; i++) {
                 text += String.fromCharCode(inflated[i])

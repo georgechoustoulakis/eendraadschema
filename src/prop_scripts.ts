@@ -1,6 +1,5 @@
 import { download_by_blob, import_to_structure, structure } from './main';
-
-declare var pako: any;
+import * as pako from 'pako/dist/pako.es5';
 
 export const VERSION = "git"; //can be "git" or "online"
 
@@ -70,7 +69,7 @@ export function exportjson() {
         let decoder = new TextDecoder("utf-8");
         let encoder = new TextEncoder();
         let pako_inflated = new Uint8Array(encoder.encode(text));
-        let pako_deflated = new Uint8Array(pako.deflate(pako_inflated));
+        let pako_deflated = new Uint8Array(pako.deflate(pako_inflated,undefined));
         text = "EDS0030000" + btoa(String.fromCharCode.apply(null, pako_deflated));
     } catch (error) {
         text = "TXT0030000" + text;
