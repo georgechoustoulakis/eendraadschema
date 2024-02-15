@@ -704,7 +704,7 @@ export function load_example(nr: number) {
     }
 }
 
-var importjson = function(event) {
+export function importJson(event) {
     var input = event.target;
     var reader = new FileReader();
     var text:string = "";
